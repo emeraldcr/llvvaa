@@ -48,7 +48,7 @@ export default function Home() {
       duration: "3–4 horas",
       difficulty: "Intermedio–Alto",
       price: "$29 – $59",
-      image: "/IMG_4438.jpg",
+      image: "/IMG_4438.JPG",
       highlights: [
         "Acceso a la cascada Zafiro",
         "Guías locales certificados (con chistes malos sobre monos incluidos)",
@@ -311,7 +311,7 @@ export default function Home() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/IMG_3295.jpg')`,
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/IMG_3295.JPG')`,
           }}
         />
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
