@@ -81,18 +81,21 @@ export default function Home() {
     ]
   },
   {
-    title: "Senderos y Mirador Café San Vicente",
-    description: "Camina entre cafetales orgánicos y descubre el arte del café de especialidad. Disfruta de paisajes majestuosos mientras degustas el sabor de Costa Rica.",
-    duration: "3 horas",
-    difficulty: "Moderado",
-    price: "$35",
-    image: "/cafe-san-vicente-la-vieja.png",
-    highlights: [
-      "Tour guiado en cafetales certificados",
-      "Cata de café artesanal con expertos",
-      "Miradores 360° sobre montanas y cafetales"
-    ]
-  },
+  "title": "Aventura Eco-Gourmet San Vicente",
+  "description": "Vive una experiencia integral en San Vicente: explora senderos volcánicos, aprende tradiciones rurales, disfruta catas artesanales y conecta con la naturaleza pura de Costa Rica.",
+  "duration": "5 horas",
+  "difficulty": "Intermedio",
+  "price": "$59",
+  "image": "/aventura-eco-gourmet-san-vicente.png",
+  "highlights": [
+    "Senderismo guiado en bosque volcánico y cataratas ocultas",
+    "Tour vivencial: ordeño de vaca y fabricación de chocolate artesanal",
+    "Cosecha de fresas frescas y taller de quesos con cata de vinos locales",
+    "Vista panorámica desde miradores naturales 360°",
+    "Recorrido cultural en tractor comunitario (Chapulín Tour)"
+  ]
+}
+,
   {
     title: "Pozas Secretas de Sucre",
     description: "Relájate en pozas de manantial ocultas entre bosques primarios. Una joya natural donde la serenidad y la frescura del agua pura te esperan.",
