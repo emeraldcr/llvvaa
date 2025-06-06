@@ -40,137 +40,137 @@ export default function Home() {
   // Lista de aventuras (ya adaptada a La Vieja Adventures)
   const adventures = [
   {
-    title: "Expedición al Cañón Esmeralda",
-    description: "Adéntrate en un cañón rodeado de selva tropical, explora cascadas cristalinas y desafía senderos escarpados en una aventura vibrante de naturaleza pura.",
+    title: "Expedición al Cñón Esmeralda",
+    description: "Adéntrate en un cañón escondido entre selvas tropicales, explora cascadas de aguas turquesas y senderos secretos. Vive la energía de la naturaleza pura en cada paso.",
     duration: "3–4 horas",
     difficulty: "Moderado–Alto",
-    price: "$29 – $59",
+    price: "$59",
     image: "/IMG_4438.JPG",
     highlights: [
       "Acceso exclusivo a la cascada Zafiro",
-      "Guías certificados con profundo conocimiento local",
-      "Equipo de seguridad completo (casco, chaleco y actitud ecoaventurera)",
-      "Senderos con puentes colgantes y cruces fluviales",
-      "Infraestructura ecoamigable: vestidores, baños, duchas y café de la región",
-    ],
+      "Guías certificados con pasión local",
+      "Equipo de seguridad de alta gama",
+      "Puentes colgantes y cruces de río emocionantes",
+      "Vestidores ecológicos, duchas y café orgánico"
+    ]
   },
   {
     title: "Safari de Aves en la Zona del Quetzal",
-    description: "Embárcate en una travesía ornitológica para admirar al mítico quetzal y más de 200 especies de aves en su hábitat natural. Observación respetuosa, emociones genuinas.",
+    description: "Descubre el mundo oculto de más de 200 especies de aves, incluyendo al mítico quetzal. Fotografía, observa y conecta con la vida alada como nunca antes.",
     duration: "4 horas",
     difficulty: "Fácil",
     price: "$55",
     image: "/bird-watching-la-vieja.png",
     highlights: [
-      "Guía ornitológico certificado y bilingüe",
-      "Binoculares de alta gama incluidos",
-      "Fotografía en alta resolución, perfecta para coleccionistas de momentos únicos",
-    ],
+      "Guía ornitólogo certificado y bilingüe",
+      "Binoculares profesionales incluidos",
+      "Momentos de fotografía únicos e inolvidables"
+    ]
   },
   {
     title: "Expedición Nocturna en Bosque Nuboso",
-    description: "Sumérgete en el misterio de la selva nocturna: ranas multicolores, murciélagos fascinantes y luciérnagas danzantes en un espectáculo natural bajo las estrellas.",
+    description: "Adéntrate en la selva mágica de la noche. Escucha el canto de las ranas, sigue el destello de las luciérnagas y descubre la vida secreta bajo las estrellas.",
     duration: "3 horas",
     difficulty: "Fácil",
-    price: "$40",
+    price: "$45",
     image: "/tour-nocturno-la-vieja.png",
     highlights: [
-      "Observación de fauna nocturna con linternas de bajo impacto",
-      "Charlas de conservación ambiental",
-      "Grupos reducidos para una experiencia íntima y respetuosa",
-    ],
+      "Observación de fauna nocturna con guías expertos",
+      "Linternas de bajo impacto para conservación",
+      "Grupos pequeños para una experiencia inmersiva"
+    ]
   },
   {
     title: "Senderos y Mirador Café San Vicente",
-    description: "Descubre los secretos de la caficultura orgánica mientras caminas entre cafetales y degustas café recién tostado. Paisajes espectaculares y aromas envolventes.",
+    description: "Camina entre cafetales orgánicos y descubre el arte del café de especialidad. Disfruta de paisajes majestuosos mientras degustas el sabor de Costa Rica.",
     duration: "3 horas",
     difficulty: "Moderado",
     price: "$35",
     image: "/cafe-san-vicente-la-vieja.png",
     highlights: [
-      "Tour guiado por cafetales certificados",
-      "Demostración de tueste artesanal y cata de café orgánico",
-      "Miradores panorámicos con vistas de 360° de la región",
-    ],
+      "Tour guiado en cafetales certificados",
+      "Cata de café artesanal con expertos",
+      "Miradores 360° sobre montanas y cafetales"
+    ]
   },
   {
     title: "Pozas Secretas de Sucre",
-    description: "Sumérgete en pozas de agua pura, escondidas entre bosques prístinos. Un rincón secreto donde la naturaleza y la tranquilidad se encuentran.",
+    description: "Relájate en pozas de manantial ocultas entre bosques primarios. Una joya natural donde la serenidad y la frescura del agua pura te esperan.",
     duration: "2.5 horas",
     difficulty: "Fácil",
     price: "$30",
     image: "/pozas-secretas-sucre.png",
     highlights: [
-      "Acceso a pozas naturales de manantial",
-      "Senderos interpretativos sobre flora endémica",
-      "Guías locales con historias vivas del bosque",
-    ],
+      "Acceso a piscinas naturales de agua cristalina",
+      "Senderos con interpretación ecológica",
+      "Guías locales apasionados por la naturaleza"
+    ]
   },
   {
     title: "Ruta de Volcanes Dormidos",
-    description: "Explora antiguos cráteres cubiertos de selva exuberante, descubre geología viva y siente la fuerza latente de la Tierra bajo tus pies.",
+    description: "Explora cráteres extintos cubiertos de selva exuberante. Siente el pulso de la Tierra mientras descubres la historia geológica de la región.",
     duration: "5 horas",
     difficulty: "Moderado",
     price: "$50",
     image: "/volcanes-dormidos-la-vieja.png",
     highlights: [
-      "Caminata por cráteres volcánicos reforestados",
-      "Observación de biodiversidad endémica",
-      "Guías expertos en geología volcánica",
-    ],
+      "Senderismo por cráteres antiguos",
+      "Biodiversidad única y endémica",
+      "Guías especializados en geología volcánica"
+    ]
   },
   {
-    title: "Exploración de Minas de Azufre",
-    description: "Aventura subterránea entre minas históricas de azufre. Un recorrido que combina historia, ciencia y naturaleza extrema.",
-    duration: "4 horas",
-    difficulty: "Intermedio",
+    title: "Tour Eco-Exploración Minas de Azufre",
+    description: "Recorre senderos hacia antiguas minas de azufre, testigos vivos de la historia volcánica y ambiental del Parque Nacional del Agua Juan Castro Blanco.",
+    duration: "5 horas",
+    difficulty: "Moderado",
     price: "$45",
     image: "/minas-azufre-la-vieja.png",
     highlights: [
-      "Recorrido seguro por galerías mineras históricas",
-      "Charlas sobre geología volcánica y patrimonio cultural",
-      "Paisajes geotermales de colores únicos",
-    ],
+      "Caminata a formaciones de azufre activas",
+      "Interpretación geológica y ecológica",
+      "Avistamiento de flora y aves singulares"
+    ]
   },
   {
     title: "Parque Nacional del Agua Juan Castro Blanco",
-    description: "Sumérgete en un paraíso escondido: senderos entre ríos cristalinos, cascadas ocultas y ecosistemas de bosque nuboso de inigualable biodiversidad.",
+    description: "Descubre un santuario de biodiversidad con ríos cristalinos y cascadas ocultas en el corazón del bosque nuboso costarricense.",
     duration: "6 horas",
     difficulty: "Intermedio",
     price: "$60",
     image: "/parque-agua-juan-castro-blanco.png",
     highlights: [
-      "Caminatas guiadas en bosques nublados primarios",
-      "Acceso a cascadas iridiscentes y pozas naturales",
-      "Almuerzo sostenible con productos locales",
-    ],
+      "Senderismo guiado en bosque primario",
+      "Visitas a cascadas y pozas secretas",
+      "Almuerzo con productos locales sostenibles"
+    ]
   },
   {
     title: "Nacientes de Agua Vivas",
-    description: "Camina hacia manantiales prístinos, en un entorno de selva primaria donde el agua brota directamente de la Tierra en su forma más pura.",
+    description: "Conecta con la esencia del agua en manantiales de pureza absoluta. Un viaje espiritual hacia los orígenes de la vida.",
     duration: "3 horas",
     difficulty: "Moderado",
     price: "$35",
     image: "/nacientes-agua-la-vieja.png",
     highlights: [
-      "Exploración de fuentes de agua natural",
-      "Senderos interpretativos sobre conservación hídrica",
-      "Baño opcional en aguas de alta pureza",
-    ],
+      "Exploración de nacientes naturales",
+      "Senderos educativos sobre conservación del agua",
+      "Baño refrescante en aguas cristalinas"
+    ]
   },
   {
     title: "RainWalk: Caminata Bajo la Lluvia",
-    description: "Abraza la magia de la lluvia tropical con botas y capa impermeable. Una experiencia sensorial que revitaliza cuerpo y alma.",
+    description: "Siente la lluvia tropical abrazándote mientras recorres senderos vivos. Ideal para quienes buscan reconectar con la naturaleza de manera auténtica.",
     duration: "2 horas",
     difficulty: "Fácil",
     price: "$25",
     image: "/caminata-lluvia-la-vieja.png",
     highlights: [
-      "Senderismo interpretativo en condiciones de lluvia ligera",
-      "Equipo impermeable de cortesía",
-      "Observación de biodiversidad que solo se revela bajo la lluvia",
-    ],
-  },
+      "Senderismo con equipamiento impermeable incluido",
+      "Observación de fauna activa bajo la lluvia",
+      "Experiencia revitalizante y sensorial"
+    ]
+  }
 ];
 
 
