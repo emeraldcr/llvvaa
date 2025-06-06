@@ -86,7 +86,7 @@ export default function Home() {
   "duration": "5 horas",
   "difficulty": "Intermedio",
   "price": "$59",
-  "image": "/aventura-eco-gourmet-san-vicente.png",
+  "image": "/cafe-san-vicente-la-vieja.png",
   "highlights": [
     "Senderismo guiado en bosque volcánico y cataratas ocultas",
     "Tour vivencial: ordeño de vaca y fabricación de chocolate artesanal",
