@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from 'next/link'
-
 import {
   MapPin,
   Phone,
@@ -39,6 +38,15 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 
+
+  const scrollToId = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       {/* ===========================
@@ -48,11 +56,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo + Nombre */}
-            <div className="flex items-center space-x-2">
+            <a className="flex items-center space-x-2" href="/">
              
               <Image src={'/logo2.png'} alt="logo" width={60} height={60}></Image>
               <span className="text-xl font-bold text-gray-900">La Vieja Adventures</span>
-            </div>
+            </a>
 
             {/* Menú Escritorio */}
             <div className="hidden md:flex items-center space-x-8">
@@ -74,7 +82,14 @@ export default function Home() {
               <a href="#contact" className="text-gray-700 hover:text-green-600 transition-colors">
                 Contacto
               </a>
-              <Button className="bg-green-600 hover:bg-green-700">Reserva Ya</Button>
+              <Button
+                      size="lg"
+                      variant="outline"
+                      className="text-green-700 hover:text-green-600 transition-colors"
+                      onClick={() => scrollToId('contact')}
+                    >
+            Reserva ya!
+          </Button>
             </div>
 
             {/* Botón Menú Móvil */}
@@ -107,7 +122,15 @@ export default function Home() {
                 <a href="#contact" className="text-gray-700 hover:text-green-600 transition-colors">
                   Contacto
                 </a>
-                <Button className="bg-green-600 hover:bg-green-700 w-fit">Reserva Ya</Button>
+              
+                  <Button
+                      size="lg"
+                      variant="outline"
+                      className="bg-green-600 hover:bg-green-700 w-fit"
+                      onClick={() => scrollToId('contact')}
+                    >
+            Reserva ya!
+          </Button>
               </div>
             </div>
           )}
@@ -124,26 +147,31 @@ export default function Home() {
             backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/IMG_3295.JPG')`,
           }}
         />
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            ¡Bienvenidos a <span className="block text-green-400">La Vieja Adventures!</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200">
-            Aventuras sostenibles en Sucre, Ciudad Quesada. Explora la naturaleza con responsabilidad y mucha adrenalina.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-lg px-8 py-3">
-              Ver Aventuras
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-white border-white hover:bg-white hover:text-gray-900 text-lg px-8 py-3"
-            >
-              Sobre Nosotros
-            </Button>
-          </div>
+          <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              ¡Bienvenidos a <span className="block text-green-400">La Vieja Adventures!</span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-gray-200">
+              Aventuras sostenibles en Sucre, Ciudad Quesada. Explora la naturaleza con responsabilidad y mucha adrenalina.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button
+            size="lg"
+            className="bg-green-600 hover:bg-green-700 text-lg px-8 py-3"
+            onClick={() => scrollToId('adventures')}
+          >
+            Ver Aventuras
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="text-black border-white hover:bg-white hover:text-gray-900 text-lg px-8 py-3"
+            onClick={() => scrollToId('about')}
+          >
+            Sobre Nosotros
+          </Button>
+        </div>  
         </div>
       </section>
 
