@@ -1,15 +1,15 @@
 'use client';
 import Image from "next/image";
 import { useState } from "react";
+import Link from 'next/link'
+
 import {
   MapPin,
   Phone,
   Mail,
   Clock,
-  Camera,
   TreePine,
   Mountain,
-  Waves,
   Star,
   ArrowRight,
   Menu,
@@ -21,6 +21,8 @@ import {
   Award,
 } from "lucide-react";
 
+import { services, adventures, testimonials  } from "./lib/statics";
+
 import {
   Card,
   CardContent,
@@ -28,7 +30,6 @@ import {
   CardHeader,
   CardTitle
 } from "./components/ui/card";
-import { Badge } from "./components/ui/badge";
 import { Input } from "./components/ui/input";
 import { Textarea } from "./components/ui/textarea";
 import { Label } from "./components/ui/label";
@@ -37,198 +38,6 @@ import { Button } from "./components/ui/button";
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Lista de aventuras (ya adaptada a La Vieja Adventures)
-  const adventures = [
-  {
-    title: "Expedición al Cñón Esmeralda",
-    description: "Adéntrate en un cañón escondido entre selvas tropicales, explora cascadas de aguas turquesas y senderos secretos. Vive la energía de la naturaleza pura en cada paso.",
-    duration: "3–4 horas",
-    difficulty: "Moderado–Alto",
-    price: "$59",
-    image: "/IMG_4438.JPG",
-    highlights: [
-      "Acceso exclusivo a la cascada Zafiro",
-      "Guías certificados con pasión local",
-      "Equipo de seguridad de alta gama",
-      "Puentes colgantes y cruces de río emocionantes",
-      "Vestidores ecológicos, duchas y café orgánico"
-    ]
-  },
-  {
-    title: "Safari de Aves en la Zona del Quetzal",
-    description: "Descubre el mundo oculto de más de 200 especies de aves, incluyendo al mítico quetzal. Fotografía, observa y conecta con la vida alada como nunca antes.",
-    duration: "4 horas",
-    difficulty: "Fácil",
-    price: "$55",
-    image: "/bird-watching-la-vieja.png",
-    highlights: [
-      "Guía ornitólogo certificado y bilingüe",
-      "Binoculares profesionales incluidos",
-      "Momentos de fotografía únicos e inolvidables"
-    ]
-  },
-  {
-    title: "Expedición Nocturna en Bosque Nuboso",
-    description: "Adéntrate en la selva mágica de la noche. Escucha el canto de las ranas, sigue el destello de las luciérnagas y descubre la vida secreta bajo las estrellas.",
-    duration: "3 horas",
-    difficulty: "Fácil",
-    price: "$45",
-    image: "/tour-nocturno-la-vieja.png",
-    highlights: [
-      "Observación de fauna nocturna con guías expertos",
-      "Linternas de bajo impacto para conservación",
-      "Grupos pequeños para una experiencia inmersiva"
-    ]
-  },
-  {
-  "title": "Aventura Eco-Gourmet San Vicente",
-  "description": "Vive una experiencia integral en San Vicente: explora senderos volcánicos, aprende tradiciones rurales, disfruta catas artesanales y conecta con la naturaleza pura de Costa Rica.",
-  "duration": "5 horas",
-  "difficulty": "Intermedio",
-  "price": "$59",
-  "image": "/cafe-san-vicente-la-vieja.png",
-  "highlights": [
-    "Senderismo guiado en bosque volcánico y cataratas ocultas",
-    "Tour vivencial: ordeño de vaca y fabricación de chocolate artesanal",
-    "Cosecha de fresas frescas y taller de quesos con cata de vinos locales",
-    "Vista panorámica desde miradores naturales 360°",
-    "Recorrido cultural en tractor comunitario (Chapulín Tour)"
-  ]
-}
-,
-  {
-    title: "Pozas Secretas de Sucre",
-    description: "Relájate en pozas de manantial ocultas entre bosques primarios. Una joya natural donde la serenidad y la frescura del agua pura te esperan.",
-    duration: "2.5 horas",
-    difficulty: "Fácil",
-    price: "$30",
-    image: "/pozas-secretas-sucre.png",
-    highlights: [
-      "Acceso a piscinas naturales de agua cristalina",
-      "Senderos con interpretación ecológica",
-      "Guías locales apasionados por la naturaleza"
-    ]
-  },
-  {
-    title: "Ruta de Volcanes Dormidos",
-    description: "Explora cráteres extintos cubiertos de selva exuberante. Siente el pulso de la Tierra mientras descubres la historia geológica de la región.",
-    duration: "5 horas",
-    difficulty: "Moderado",
-    price: "$50",
-    image: "/volcanes-dormidos-la-vieja.png",
-    highlights: [
-      "Senderismo por cráteres antiguos",
-      "Biodiversidad única y endémica",
-      "Guías especializados en geología volcánica"
-    ]
-  },
-  {
-    title: "Tour Eco-Exploración Minas de Azufre",
-    description: "Recorre senderos hacia antiguas minas de azufre, testigos vivos de la historia volcánica y ambiental del Parque Nacional del Agua Juan Castro Blanco.",
-    duration: "5 horas",
-    difficulty: "Moderado",
-    price: "$45",
-    image: "/minas-azufre-la-vieja.png",
-    highlights: [
-      "Caminata a formaciones de azufre activas",
-      "Interpretación geológica y ecológica",
-      "Avistamiento de flora y aves singulares"
-    ]
-  },
-  {
-    title: "Parque Nacional del Agua Juan Castro Blanco",
-    description: "Descubre un santuario de biodiversidad con ríos cristalinos y cascadas ocultas en el corazón del bosque nuboso costarricense.",
-    duration: "6 horas",
-    difficulty: "Intermedio",
-    price: "$60",
-    image: "/parque-agua-juan-castro-blanco.png",
-    highlights: [
-      "Senderismo guiado en bosque primario",
-      "Visitas a cascadas y pozas secretas",
-      "Almuerzo con productos locales sostenibles"
-    ]
-  },
-  {
-    title: "Nacientes de Agua Vivas",
-    description: "Conecta con la esencia del agua en manantiales de pureza absoluta. Un viaje espiritual hacia los orígenes de la vida.",
-    duration: "3 horas",
-    difficulty: "Moderado",
-    price: "$35",
-    image: "/nacientes-agua-la-vieja.png",
-    highlights: [
-      "Exploración de nacientes naturales",
-      "Senderos educativos sobre conservación del agua",
-      "Baño refrescante en aguas cristalinas"
-    ]
-  },
-  {
-    title: "RainWalk: Caminata Bajo la Lluvia",
-    description: "Siente la lluvia tropical abrazándote mientras recorres senderos vivos. Ideal para quienes buscan reconectar con la naturaleza de manera auténtica.",
-    duration: "2 horas",
-    difficulty: "Fácil",
-    price: "$25",
-    image: "/caminata-lluvia-la-vieja.png",
-    highlights: [
-      "Senderismo con equipamiento impermeable incluido",
-      "Observación de fauna activa bajo la lluvia",
-      "Experiencia revitalizante y sensorial"
-    ]
-  }
-];
-
-
-  // Servicios principales de La Vieja Adventures
-  const services = [
-    {
-      icon: <TreePine className="h-8 w-8 text-green-600" />,
-      title: "Tours Ecológicos Guiados",
-      description: "Guías locales con años de experiencia y pasión por la conservación.",
-    },
-    {
-      icon: <Mountain className="h-8 w-8 text-green-600" />,
-      title: "Actividades de Aventura",
-      description: "Zip-lining, rappel y caminatas extremas para todos los niveles (¡incluso para valientes!).",
-    },
-    {
-      icon: <Camera className="h-8 w-8 text-green-600" />,
-      title: "Tours de Fotografía",
-      description: "Captura la biodiversidad costarricense con consejos de fotógrafos profesionales.",
-    },
-    {
-      icon: <Waves className="h-8 w-8 text-green-600" />,
-      title: "Expediciones a Cascadas",
-      description: "Descubre cascadas ocultas con piscinas naturales de agua cristalina.",
-    },
-    {
-      icon: <Leaf className="h-8 w-8 text-green-600" />,
-      title: "Educación Ambiental",
-      description: "Charlas y talleres sobre conservación para todas las edades.",
-    },
-    {
-      icon: <Users className="h-8 w-8 text-green-600" />,
-      title: "Turismo Comunitario",
-      description: "Conecta con comunidades locales, apoya la economía rural y aprende sus tradiciones.",
-    },
-  ];
-
-  // Testimonios de clientes
-  const testimonials = [
-    {
-      name: "María López",
-      text: "“El tour al Cañón del Río La Vieja fue una experiencia inolvidable. El guía nos hizo reír mientras nos enseñaba sobre cada especie. ¡Volvería mil veces!”",
-      avatar: "/clientes/maria-lopez.png",
-    },
-    {
-      name: "Carlos Gómez",
-      text: "“Nunca imaginé ver al quetzal tan de cerca. La organización, la seguridad y el café final hicieron que valiera cada céntimo.”",
-      avatar: "/clientes/carlos-gomez.png",
-    },
-    {
-      name: "Ana Rodríguez",
-      text: "“La caminata bajo la lluvia fue mágica. Me sentí parte del bosque y aprendí muchísimo sobre las ranas y su hábitat.”",
-      avatar: "/clientes/ana-rodriguez.png",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
@@ -377,10 +186,10 @@ export default function Home() {
       </p>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
       {adventures.map((adventure) => (
         <div
-          key = {adventure.title}
+          key={adventure.title}
           className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white border border-gray-200"
         >
           <div className="relative aspect-[4/3] overflow-hidden">
@@ -425,13 +234,13 @@ export default function Home() {
                   ))}
                 </ul>
 
-                {/* Botón de Reserva */}
-                <a 
-                  href="#contacto" 
+                {/* Botón de Reserva con Link */}
+                <Link 
+                  href={`/tours/${adventure.slug}`} 
                   className="mt-8 inline-block w-full text-center bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-2xl text-lg shadow-md hover:shadow-lg transition-all duration-300"
                 >
                   Reserva tu Aventura
-                </a>
+                </Link>
               </div>
             </div>
           </div>
