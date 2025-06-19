@@ -504,7 +504,7 @@ export const adventures = [
     },
     {
       "name": "Expedición Privada",
-      "price": "₡34,990 / $59",
+      "price": "₡,990 / $59",
       "available": "lunes a viernes",
       "includes": [
         "Guía exclusivo solo para tu grupo",
