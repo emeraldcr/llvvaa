@@ -93,7 +93,7 @@ export default function Home() {
               className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
             />
             <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full text-green-700 font-semibold text-sm shadow-md">
-              {adventure.price}
+              {adventure.price_range}
             </div>
           </div>
 
