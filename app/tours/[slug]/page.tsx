@@ -16,7 +16,7 @@ export default function TourPage({ params }: Props) {
 
   const handleWhatsApp = () => {
     const mensaje = `Hola 👋, quiero reservar el tour *${tour?.title}* para la siguiente fecha: [tu fecha aquí].\n\nSeríamos [cantidad de personas], y mi nombre es [tu nombre].\n\n¿Podés confirmarme disponibilidad?`
-    const link = `https://wa.me/50664666738?text=${encodeURIComponent(mensaje)}`
+    const link = `https://wa.me/50662332535?text=${encodeURIComponent(mensaje)}`
     router.push(link)
   }
 
