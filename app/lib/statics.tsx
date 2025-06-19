@@ -7,232 +7,135 @@ import {
   Camera,
   Waves
 } from 'lucide-react'
+
 export const adventures = [
   {
     title: "Expedición al Cañón Esmeralda",
     slug: "canon-esmeralda",
-    description: "Adéntrate en un cañón escondido entre selvas tropicales, explora cascadas de aguas turquesas y senderos secretos...",
+    description: "Adéntrate en un cañón escondido entre selvas tropicales, con cascadas cristalinas, escaleras metálicas y travesías por río. Ideal si buscás adrenalina, naturaleza pura y aventura acuática.",
     duration: "3–4 horas",
-    difficulty: "Moderado–Alto",
-    price: "$59",
-    age : 15,
+    difficulty: "Intermedio–Alto",
+    price: "$29–$59",
+    age: 18,
     image: "/IMG_4438.JPG",
     highlights: [
-      "Acceso exclusivo a la cascada Zafiro",
-      "Guías certificados con pasión local",
-      "Equipo de seguridad de alta gama",
-      "Puentes colgantes y cruces de río emocionantes",
-      "Vestidores ecológicos, duchas y café orgánico"
+      "Cascada Zafiro y senderos secretos",
+      "Descensos guiados y cruces de río emocionantes",
+      "Equipo de seguridad completo incluido",
+      "Guías certificados y áreas de descanso"
     ],
-    schedule: ["8:00 a.m.", "12:00 m.d."],
+    schedule: ["8:00 a.m.", "9:00 a.m.", "10:00 a.m."],
     recommendations: [
-      "Zapatos de senderismo con buen agarre",
-      "Ropa cómoda que se pueda mojar",
-      "Toalla pequeña",
-      "Repelente natural"
+      "Zapatos de hiking o acuáticos",
+      "Ropa de secado rápido y cambio completo",
+      "Jacket impermeable y repelente natural",
+      "Snacks y agua personal"
     ]
   },
   {
-    title: "BirdWatching en la Zona del Quetzal",
+    title: "BirdWatching en el Bosque Nuboso",
     slug: "birdwatching-quetzal",
-    description: "Descubre el mundo oculto de más de 200 especies de aves...",
-    duration: "4 horas",
-    difficulty: "Fácil",
-    price: "$55",
-    age : 10,
+    description: "Explorá con guía experto el Bosque Eterno del Agua para ver quetzales, tucanes y colibríes. Ideal para fotografía, observación de aves y conexión silenciosa con la naturaleza.",
+    duration: "2–3 horas",
+    difficulty: "Bajo–Moderado",
+    price: "$39–$89",
+    age: 12,
     image: "/bird-watching-la-vieja.png",
     highlights: [
-      "Guía ornitólogo certificado y bilingüe",
-      "Binoculares profesionales incluidos",
-      "Momentos de fotografía únicos e inolvidables"
+      "Guía ornitólogo y préstamo de binoculares",
+      "Avistamiento de aves únicas como el quetzal",
+      "Opciones con mirador, snack y souvenir"
     ],
-    schedule: ["6:00 a.m."],
+    schedule: ["5:30 a.m.", "6:00 a.m.", "7:00 a.m.", "8:00 a.m."],
     recommendations: [
       "Ropa de colores neutros",
-      "Botella reutilizable con agua",
-      "Protector solar ecológico",
-      "Binoculares personales (opcional)"
+      "Zapatos cómodos y repelente",
+      "Binoculares (si tenés) y cámara"
     ]
   },
   {
-    title: "Expedición Nocturna en Bosque Nuboso",
+    title: "Expedición Nocturna – Selva Viva",
     slug: "expedicion-nocturna",
-    description: "Adéntrate en la selva mágica de la noche...",
-    duration: "3 horas",
-    difficulty: "Fácil",
-    price: "$45",
-    age : 12,
+    description: "Explorá el bosque de noche y descubrí ranas, luciérnagas, lechuzas y hasta hongos bioluminiscentes. Ideal si te gusta la vida silvestre y la magia nocturna.",
+    duration: "2–2.5 horas",
+    difficulty: "Moderado",
+    price: "$39–$69",
+    age: 12,
     image: "/tour-nocturno-la-vieja.png",
     highlights: [
-      "Observación de fauna nocturna con guías expertos",
-      "Linternas de bajo impacto para conservación",
-      "Grupos pequeños para una experiencia inmersiva"
+      "Caminata guiada bajo la luna",
+      "Linternas, bebida caliente y zonas de observación",
+      "Opciones con meditación, snack y souvenir"
     ],
-    schedule: ["6:00 p.m.", "7:30 p.m."],
+    schedule: ["6:00 p.m.", "6:30 p.m.", "7:00 p.m."],
     recommendations: [
-      "Ropa larga y ligera",
-      "Zapatos cerrados o de montaña",
-      "Evitar perfumes fuertes",
-      "Linterna frontal (si tienes)"
-    ]
-  },
-  {
-    title: "Aventura en San Vicente",
-    slug: "aventura-san-vicente",
-    description: "Vive una experiencia integral en San Vicente...",
-    duration: "5 horas",
-    difficulty: "Intermedio",
-    price: "$59",
-    age : 12,
-    image: "/cafe-san-vicente-la-vieja.png",
-    highlights: [
-      "Senderismo guiado en bosque volcánico y cataratas ocultas",
-      "Tour vivencial: ordeño y chocolate artesanal",
-      "Cosecha de fresas y taller de quesos con vino",
-      "Vista panorámica 360°",
-      "Chapulín Tour en tractor comunitario"
-    ],
-    schedule: ["9:00 a.m."],
-    recommendations: [
-      "Bloqueador solar y gorra",
-      "Zapatos cerrados para montaña",
-      "Ropa fresca pero adecuada para ordeño y talleres",
-      "Cámara para fotos"
+      "Ropa larga, repelente y calzado cerrado",
+      "No usar perfumes, traer cámara o celular sin flash"
     ]
   },
   {
     title: "Pozas Secretas de Sucre",
     slug: "pozas-sucre",
-    description: "Relájate en pozas de manantial ocultas...",
-    duration: "2.5 horas",
-    difficulty: "Fácil",
-    price: "$30",
-    age : 16,
+    description: "Caminá hasta pozas escondidas para bañarte, relajarte y explorar entre rocas y bosque. Perfecto para reconectar con el agua y disfrutar sin prisa.",
+    duration: "2.5–3 horas",
+    difficulty: "Moderado",
+    price: "$29–$59",
+    age: 12,
     image: "/pozas-secretas-sucre.png",
     highlights: [
-      "Acceso a piscinas naturales",
-      "Senderos con interpretación ecológica",
-      "Guías locales apasionados"
+      "Pozas naturales escondidas",
+      "Guía, bebida refrescante y zonas para descansar",
+      "Opciones con picnic, bebidas artesanales y souvenir"
     ],
-    schedule: ["10:00 a.m.", "1:00 p.m."],
+    schedule: ["8:30 a.m.", "10:00 a.m.", "1:30 p.m."],
     recommendations: [
-      "Traje de baño y sandalias",
-      "Toalla ecológica",
-      "Bloqueador biodegradable",
-      "Botella de agua"
+      "Traje de baño, zapatos cerrados",
+      "Toalla, muda seca y protector de objetos",
+      "Bloqueador ecológico, hidratación"
     ]
   },
   {
     title: "Ruta de Volcanes Dormidos",
     slug: "volcanes-dormidos",
-    description: "Explora cráteres extintos cubiertos de selva...",
-    duration: "5 horas",
-    difficulty: "Moderado",
-    price: "$50",
-    age : 16,
+    description: "Explorá cráteres cubiertos de selva, miradores secretos y caminos de altura entre volcanes inactivos. Una ruta mágica para conectar con la energía de la Tierra.",
+    duration: "3.5–5 horas",
+    difficulty: "Intermedio",
+    price: "$29–$59",
+    age: 18,
     image: "/volcanes-dormidos-la-vieja.png",
     highlights: [
-      "Senderismo por cráteres antiguos",
-      "Biodiversidad endémica",
-      "Guías especializados en geología"
+      "Senderos volcánicos y cráteres escondidos",
+      "Guía ecoturístico, zonas de descanso y miradores",
+      "Opciones con almuerzo, transporte y ruta extendida"
     ],
-    schedule: ["7:30 a.m."],
+    schedule: ["8:00 a.m.", "9:00 a.m.", "10:00 a.m."],
     recommendations: [
-      "Botas de montaña",
-      "Bastón de senderismo (opcional)",
-      "Snacks naturales",
-      "Protección solar y gorra"
-    ]
-  },
-  {
-    title: "Tour Eco-Exploración Minas de Azufre",
-    slug: "minas-azufre",
-    description: "Recorre senderos hacia antiguas minas...",
-    duration: "5 horas",
-    difficulty: "Moderado",
-    price: "$45",
-    age : 18,
-    image: "/minas-azufre-la-vieja.png",
-    highlights: [
-      "Formaciones de azufre activas",
-      "Interpretación geológica",
-      "Avistamiento de flora y aves singulares"
-    ],
-    schedule: ["8:30 a.m."],
-    recommendations: [
-      "Zapatos cerrados o de senderismo",
-      "Sombrero o gorra",
-      "Lentes de sol",
-      "Snacks y agua"
-    ]
-  },
-  {
-    title: "Parque Nacional del Agua Juan Castro Blanco",
-    slug: "parque-agua-juan-castro",
-    description: "Descubre un santuario de biodiversidad...",
-    duration: "6 horas",
-    difficulty: "Intermedio",
-    price: "$60",
-    age : 14,
-    image: "/parque-agua-juan-castro-blanco.png",
-    highlights: [
-      "Senderismo en bosque primario",
-      "Cascadas y pozas secretas",
-      "Almuerzo con productos locales"
-    ],
-    schedule: ["8:00 a.m."],
-    recommendations: [
-      "Zapatos resistentes al agua",
-      "Cambio de ropa",
-      "Snacks saludables",
-      "Botella reutilizable"
-    ]
-  },
-  {
-    title: "Nacientes de Agua Vivas",
-    slug: "nacientes-agua",
-    description: "Conecta con la esencia del agua...",
-    duration: "3 horas",
-    difficulty: "Moderado",
-    price: "$35",
-    age : 8,
-    image: "/nacientes-agua-la-vieja.png",
-    highlights: [
-      "Exploración de nacientes naturales",
-      "Senderos educativos",
-      "Baño en aguas cristalinas"
-    ],
-    schedule: ["9:00 a.m."],
-    recommendations: [
-      "Traje de baño bajo la ropa",
-      "Sandalias con buena tracción",
-      "Repelente ecológico",
-      "Toalla ligera"
+      "Zapatos de montaña, ropa ligera",
+      "Bloqueador, agua, snacks y cambio de ropa"
     ]
   },
   {
     title: "RainWalk: Caminata Bajo la Lluvia",
     slug: "rainwalk",
-    description: "Siente la lluvia tropical abrazándote...",
-    duration: "2 horas",
-    difficulty: "Fácil",
-    price: "$25",
-    age : 8,
+    description: "Caminá bajo la lluvia y sentí el bosque con todos los sentidos. Ideal para quienes buscan una experiencia natural auténtica y consciente.",
+    duration: "2.5–3 horas",
+    difficulty: "Suave–Moderado",
+    price: "$39–$69",
+    age: 8,
     image: "/caminata-lluvia-la-vieja.png",
     highlights: [
-      "Senderismo con equipo impermeable",
-      "Observación de fauna bajo lluvia",
-      "Experiencia sensorial revitalizante"
+      "Guía, capa impermeable y bebida caliente",
+      "Zonas de observación, mindfulness y souvenir",
+      "Rutas adaptadas y bastones de apoyo"
     ],
-    schedule: ["2:00 p.m.", "4:00 p.m."],
+    schedule: ["8:00 a.m.", "9:00 a.m.", "2:00 p.m.", "3:00 p.m."],
     recommendations: [
-      "Ropa impermeable o capa plástica",
-      "Botas de hule o resistentes al agua",
-      "Cambio de ropa seca para después",
-      "Gorra o sombrero impermeable"
+      "Ropa de secado rápido, zapatos con buen agarre",
+      "Cambio seco, protector para celular, y muchas ganas de mojarse"
     ]
   }
 ];
+
 
 
 export const services = [
