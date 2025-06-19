@@ -30,7 +30,7 @@ export const adventures = [
   "packages": [
     {
       "name": "Básico",
-      "price": "₡14,990 / $29",
+      "price": "₡19,990 / $39",
       "includes": [
         "Tour guiado",
         "Equipo de seguridad completo",
@@ -370,7 +370,7 @@ export const adventures = [
   "packages": [
     {
       "name": "Pozas Naturales",
-      "price": "₡14,990 / $29",
+      "price": "₡19,990 / $39",
       "includes": [
         "Caminata guiada",
         "Acceso a pozas escondidas",
@@ -380,7 +380,7 @@ export const adventures = [
     },
     {
       "name": "Pozas con Picnic",
-      "price": "₡19,990 / $39",
+      "price": "₡24,990 / $49",
       "includes": [
         "Todo lo anterior",
         "Snack saludable",
@@ -482,7 +482,7 @@ export const adventures = [
   "packages": [
     {
       "name": "Explorador Natural",
-      "price": "₡14,990 / $29",
+      "price": "₡19,990 / $39",
       "includes": [
         "Guía certificado",
         "Acceso a ruta y cráteres",
@@ -493,7 +493,7 @@ export const adventures = [
     },
     {
       "name": "Pasaporte Volcánico",
-      "price": "₡19,990 / $39",
+      "price": "₡24,990 / $50",
       "includes": [
         "Todo lo del paquete anterior",
         "Almuerzo típico",
@@ -504,7 +504,7 @@ export const adventures = [
     },
     {
       "name": "Expedición Privada",
-      "price": "₡29,990 / $59",
+      "price": "₡34,990 / $59",
       "available": "lunes a viernes",
       "includes": [
         "Guía exclusivo solo para tu grupo",
