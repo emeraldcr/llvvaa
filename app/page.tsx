@@ -324,7 +324,7 @@ export default function Home() {
                   <div className="text-gray-600">Visitantes </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-600">15+</div>
+                  <div className="text-3xl font-bold text-green-600">5+</div>
                   <div className="text-gray-600">Años de experiencia</div>
                 </div>
               </div>
