@@ -162,15 +162,16 @@ export default function TourPage({ params }: Props) {
             <p className="text-xs text-gray-500 mt-2">WhatsApp directo: 6466-6738</p>
           </div>
         </div>
+        <Hero></Hero>
+        <Services></Services>
+        <About></About>
+        <Adventures></Adventures>
+        <HeroSustainability></HeroSustainability>
+        <Testimonials></Testimonials>
+        <Contact></Contact>
+        <Footer></Footer>
       </div>
-      <Hero></Hero>
-      <Services></Services>
-      <About></About>
-      <Adventures></Adventures>
-      <HeroSustainability></HeroSustainability>
-      <Testimonials></Testimonials>
-      <Contact></Contact>
-      <Footer></Footer>
+     
    </div>
   )
 }

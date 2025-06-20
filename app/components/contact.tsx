@@ -13,6 +13,8 @@ import { Textarea } from '../components/ui/textarea'
 import { Label } from '../components/ui/label'
 import { Button } from '../components/ui/button'
 
+import { useRouter } from 'next/navigation'
+
 export default function Contact() {
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({
@@ -25,6 +27,7 @@ export default function Contact() {
     newsletter: false,
   })
 
+    const router = useRouter()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value, type } = e.target
 
@@ -55,7 +58,8 @@ export default function Contact() {
         },
         '-AioZlrYl09XXA5sU'
       )
-      alert('Mensaje enviado con éxito 🌿')
+     
+      router.push('/confirmation')
       setForm({
         firstName: '', lastName: '', email: '',
         phone: '', adventure: '', message: '', newsletter: false
