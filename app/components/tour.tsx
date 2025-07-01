@@ -145,7 +145,7 @@ const handleWhatsApp = () => {
             >
               Reservar por WhatsApp
             </button>
-            <p className="text-xs text-gray-500 mt-2">WhatsApp directo: 6466-6738</p>
+            <p className="text-xs text-gray-500 mt-2">WhatsApp directo: 6233-2535</p>
           </div>
         </div>
   )
