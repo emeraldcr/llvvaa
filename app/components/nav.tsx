@@ -56,7 +56,12 @@ export default function Nav() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
                 <div className="relative bg-white/20 backdrop-blur-sm rounded-full p-2 border border-white/30 group-hover:border-cyan-400/50 transition-all duration-300">
-                  <Droplets className="w-8 h-8 text-cyan-400" />
+                
+                   <img
+              src={ "/logo2.png"}
+              alt={"La Vieja Adventures Logo"}
+              className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+            />
                 </div>
               </div>
               <div className="flex flex-col">
@@ -93,7 +98,8 @@ export default function Nav() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative flex items-center space-x-2">
-                  <Waves className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                 
+                    <Droplets className="w-5 h-5 group-hover:scale-110 transition-transform duration-300 cyan-700 "  />
                   <span className="font-bold">¡Reserva ya!</span>
                 </div>
               </Button>
@@ -149,7 +155,7 @@ export default function Nav() {
                       onClick={() => scrollToId('contact')}
                     >
                       <div className="flex items-center justify-center space-x-2">
-                        <Waves className="w-5 h-5" />
+                          <Droplets className="w-8 h-8 text-cyan-400" />
                         <span className="font-bold text-lg">¡Reserva ya!</span>
                       </div>
                     </Button>
