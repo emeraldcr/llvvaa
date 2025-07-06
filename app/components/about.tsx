@@ -1,22 +1,30 @@
 'use client'
+import React from 'react';
+import { Leaf } from 'lucide-react';
 
-import React from 'react'
-import {  Leaf } from 'lucide-react'
-
-export default function About() {
-
-
+const About: React.FC = () => {
   return (
-    <section id="about" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section id="about" className="relative w-full min-h-screen overflow-hidden py-20">
+      {/* Background with enhanced gradient and water-like effects */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(135deg, rgba(0,50,100,0.8) 0%, rgba(16,185,129,0.2) 30%, rgba(0,100,150,0.6) 70%, rgba(0,0,0,0.8) 100%), url('/equipo-guia-la-vieja.png')`,
+          filter: 'contrast(1.3) brightness(0.9) saturate(1.2)',
+        }}
+      />
 
+      {/* Glassmorphism overlay */}
+      <div className="absolute inset-0 backdrop-blur-[3px] bg-gradient-to-br from-blue-900/20 via-cyan-800/10 to-teal-900/20" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Texto */}
           <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white via-green-100 to-emerald-300 bg-clip-text text-transparent">
               Sobre La Vieja Adventures
             </h2>
-            <div className="space-y-4 text-gray-600">
+            <div className="space-y-4 text-gray-200 backdrop-blur-sm bg-black/20 rounded-2xl p-6 border border-white/10">
               <p>
                 Somos una empresa líder en turismo de aventura, comprometida con la sostenibilidad y el
                 desarrollo comunitario. Desde hace más de 5 años, hemos llevado a visitantes de todo el
@@ -36,20 +44,20 @@ export default function About() {
 
             <div className="grid grid-cols-2 gap-6 mt-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">200+</div>
-                <div className="text-gray-600">Especies de aves identificadas</div>
+                <div className="text-3xl font-bold text-green-400">200+</div>
+                <div className="text-gray-200">Especies de aves identificadas</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">5+</div>
-                <div className="text-gray-600">Cascadas accesibles</div>
+                <div className="text-3xl font-bold text-green-400">5+</div>
+                <div className="text-gray-200">Cascadas accesibles</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">5,000+</div>
-                <div className="text-gray-600">Visitantes</div>
+                <div className="text-3xl font-bold text-green-400">5,000+</div>
+                <div className="text-gray-200">Visitantes</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-green-600">5+</div>
-                <div className="text-gray-600">Años de experiencia</div>
+                <div className="text-3xl font-bold text-green-400">5+</div>
+                <div className="text-gray-200">Años de experiencia</div>
               </div>
             </div>
           </div>
@@ -66,14 +74,19 @@ export default function About() {
                 <Leaf className="h-6 w-6 text-green-600" />
               </div>
               <div>
-                <div className="font-semibold">Eco-Certificada</div>
+                <div className="font-semibold text-gray-900">Eco-Certificada</div>
                 <div className="text-sm text-gray-600">Turismo 100% sostenible</div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
+
+      {/* Glow effects */}
+      <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-cyan-400/15 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-blue-400/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
     </section>
-  )
-}
+  );
+};
+
+export default About;
