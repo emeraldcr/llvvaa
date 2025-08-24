@@ -27,6 +27,7 @@ export default function Nav() {
   }
 
   const menuItems = [
+    { id: 'anunciate', label: 'Anúnciate aquí', icon: '📢', href: '/anunciate-aqui' },
     { id: 'home', label: 'Inicio', icon: '🏠' },
     { id: 'adventures', label: 'Aventuras', icon: '🏔️' },
     { id: 'services', label: 'Servicios', icon: '⚡' },
@@ -75,18 +76,32 @@ export default function Nav() {
 
       {/* Desktop Menu */}
       <div className="hidden lg:flex items-center space-x-2">
-        {menuItems.map(({ id, label, icon }) => (
-          <button
-            key={id}
-            onClick={() => scrollToId(id)}
-            className="group relative px-4 py-2 rounded-full text-white/90 hover:text-white transition-all duration-300 hover:scale-105"
-          >
-            <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-cyan-500/20 group-hover:to-blue-500/20"></div>
-            <div className="relative flex items-center space-x-2">
-              <span className="text-sm">{icon}</span>
-              <span className="font-medium">{label}</span>
-            </div>
-          </button>
+        {menuItems.map(({ id, label, icon, href }) => (
+          href ? (
+            <a
+              key={id}
+              href={href}
+              className="group relative px-4 py-2 rounded-full text-white/90 hover:text-white transition-all duration-300 hover:scale-105"
+            >
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-cyan-500/20 group-hover:to-blue-500/20"></div>
+              <div className="relative flex items-center space-x-2">
+                <span className="text-sm">{icon}</span>
+                <span className="font-medium">{label}</span>
+              </div>
+            </a>
+          ) : (
+            <button
+              key={id}
+              onClick={() => scrollToId(id)}
+              className="group relative px-4 py-2 rounded-full text-white/90 hover:text-white transition-all duration-300 hover:scale-105"
+            >
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-cyan-500/20 group-hover:to-blue-500/20"></div>
+              <div className="relative flex items-center space-x-2">
+                <span className="text-sm">{icon}</span>
+                <span className="font-medium">{label}</span>
+              </div>
+            </button>
+          )
         ))}
         
         {/* Desktop CTA Button */}
@@ -133,20 +148,34 @@ export default function Nav() {
       <div className="pb-4 pt-2">
         <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-4 shadow-2xl">
           <div className="flex flex-col space-y-2">
-            {menuItems.map(({ id, label, icon }) => (
-              <button
-                key={id}
-                onClick={() => {
-                  scrollToId(id);
-                  setIsMenuOpen(false);
-                }}
-                className="group flex items-center space-x-3 text-left text-white/90 hover:text-white transition-all duration-300 p-3 rounded-xl hover:bg-white/10 hover:scale-105"
-              >
-                <div className="w-8 h-8 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-white/20 group-hover:border-cyan-400/50 transition-all duration-300 flex-shrink-0">
-                  <span className="text-sm">{icon}</span>
-                </div>
-                <span className="font-medium">{label}</span>
-              </button>
+            {menuItems.map(({ id, label, icon, href }) => (
+              href ? (
+                <a
+                  key={id}
+                  href={href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="group flex items-center space-x-3 text-left text-white/90 hover:text-white transition-all duration-300 p-3 rounded-xl hover:bg-white/10 hover:scale-105"
+                >
+                  <div className="w-8 h-8 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-white/20 group-hover:border-cyan-400/50 transition-all duration-300 flex-shrink-0">
+                    <span className="text-sm">{icon}</span>
+                  </div>
+                  <span className="font-medium">{label}</span>
+                </a>
+              ) : (
+                <button
+                  key={id}
+                  onClick={() => {
+                    scrollToId(id);
+                    setIsMenuOpen(false);
+                  }}
+                  className="group flex items-center space-x-3 text-left text-white/90 hover:text-white transition-all duration-300 p-3 rounded-xl hover:bg-white/10 hover:scale-105"
+                >
+                  <div className="w-8 h-8 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center border border-white/20 group-hover:border-cyan-400/50 transition-all duration-300 flex-shrink-0">
+                    <span className="text-sm">{icon}</span>
+                  </div>
+                  <span className="font-medium">{label}</span>
+                </button>
+              )
             ))}
             
             <div className="pt-3 border-t border-white/20">

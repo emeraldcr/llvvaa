@@ -586,6 +586,73 @@ export const adventures = [
       "whatsapp": "6466-6738",
       "email": "ciudadesmeraldacr@gmail.com"
     }
+  },
+  {
+    "title": "Mirador El Colibrí",
+    "slug": "mirador-el-colibri",
+    "description": "Contemplá vistas únicas del bosque nuboso y observá colibríes de colores en un mirador elevado. Perfecto para relajarse y apreciar la naturaleza.",
+    "duration": "1–2 horas",
+    "distance": "1 km ida y vuelta",
+    "difficulty": "Bajo",
+    "age_min": 5,
+    "age_max": 75,
+    "location": "Mirador El Colibrí, Sucre, Ciudad Quesada, Costa Rica",
+    "price_range": "$19–$29",
+    "image": "/IMG_9151.jpg",
+    "schedule": ["8:00 a.m.", "10:00 a.m.", "1:00 p.m.", "3:00 p.m."],
+    "packages": [
+      {
+        "name": "Mirador Básico",
+        "price": "₡9,990 / $19",
+        "includes": [
+          "Acceso al mirador",
+          "Guía local",
+          "Seguro básico"
+        ]
+      },
+      {
+        "name": "Mirador Premium",
+        "price": "₡14,990 / $29",
+        "includes": [
+          "Todo lo anterior",
+          "Bebida caliente",
+          "Souvenir artesanal"
+        ]
+      }
+    ],
+    "highlights": [
+      "Vistas panorámicas del bosque nuboso",
+      "Avistamiento de colibríes y otras aves",
+      "Sendero corto y accesible"
+    ],
+    "recommendations": [
+      "Llevar cámara y binoculares",
+      "Ropa cómoda y bloqueador solar"
+    ],
+    "technical": {
+      "terreno": "Sendero de 1 km con barandas y descansos",
+      "elevación": "150 m de ascenso",
+      "accesibilidad": "Apto para toda la familia"
+    },
+    "included_general": [
+      "Acceso al mirador",
+      "Guía acompañante",
+      "Seguro básico",
+      "Zonas de descanso"
+    ],
+    "ideal_for": [
+      "Familias y fotógrafos",
+      "Amantes de vistas panorámicas",
+      "Personas que buscan actividades ligeras"
+    ],
+    "not_recommended_for": [
+      "Personas con vértigo severo",
+      "Quienes no puedan caminar 1 km"
+    ],
+    "extra_notes": [
+      "Llegar 10 minutos antes del inicio",
+      "Se permite llevar snack ligero"
+    ]
   }
 
 ];
