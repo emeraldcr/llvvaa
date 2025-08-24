@@ -13,7 +13,7 @@ import {
   X,
 } from 'lucide-react'
 
-// shadcn/ui components
+// shadcn/ui components 
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
 import { Card, CardContent } from '../components/ui/card'
@@ -142,7 +142,7 @@ export default function SessionsSearchPage() {
           console.error('Error saving recent searches:', error)
         }
       }
-      router.push(`/adventures/${id}`)
+      router.push(`/tours/${id}`)
     }
   }
 
