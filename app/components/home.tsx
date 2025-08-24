@@ -1,25 +1,32 @@
 'use client';
-import React, { useState, KeyboardEvent, ChangeEvent } from 'react';
+import React, { useState, KeyboardEvent, ChangeEvent, FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import { Search, ArrowRight, Compass, MessageCircle } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
 const HeroSection: React.FC = () => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSearchFocused, setIsSearchFocused] = useState<boolean>(false);
 
-  const handleSearch = (e: KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log(`Searching for: ${searchQuery}`);
-    // Add your search logic here
+  const goToSearch = () => {
+    const q = searchQuery.trim();
+    // Navigate with or without q — your /search page handles empty state nicely
+    router.push(q ? `/search?q=${encodeURIComponent(q)}` : '/search');
   };
 
-  const scrollToId = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    goToSearch();
   };
 
   const handleAIChat = () => {
     console.log('AI Chat activated');
     // Add AI assistant activation logic here
+  };
+
+  const scrollToId = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -58,7 +65,12 @@ const HeroSection: React.FC = () => {
 
         {/* Search Bar */}
         <div className="mb-8 max-w-2xl mx-auto">
-          <div className={`relative transition-all duration-300 ${isSearchFocused ? 'scale-105' : ''}`}>
+          <form
+            onSubmit={handleSearchSubmit}
+            className={`relative transition-all duration-300 ${isSearchFocused ? 'scale-105' : ''}`}
+            role="search"
+            aria-label="Buscar aventuras"
+          >
             <input
               type="text"
               value={searchQuery}
@@ -67,16 +79,22 @@ const HeroSection: React.FC = () => {
               onBlur={() => setIsSearchFocused(false)}
               placeholder="Buscar aventuras, tours, actividades..."
               className="w-full px-6 py-4 pl-14 pr-16 text-lg bg-white/10 backdrop-blur-md border-2 border-white/20 rounded-full text-white placeholder-gray-300 focus:outline-none focus:border-green-400 focus:bg-white/20"
-              onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleSearch(e)}
+              onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
+                if (e.key === 'Enter') {
+                  // Let the form handle submission so button click and Enter behave the same
+                }
+              }}
+              aria-label="Cuadro de búsqueda"
             />
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-6 h-6" />
             <button
-              onClick={handleSearch}
+              type="submit"
               className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full"
+              aria-label="Buscar"
             >
               <ArrowRight className="w-5 h-5" />
             </button>
-          </div>
+          </form>
         </div>
 
         {/* Buttons */}
@@ -94,7 +112,7 @@ const HeroSection: React.FC = () => {
           <Button className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-3 rounded-full" onClick={handleAIChat}>
             <MessageCircle className="w-5 h-5 mr-2" /> Planifica con IA
           </Button>
-          <Button variant="outline" className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 px-8 py-3 rounded-full" onClick={() => scrollToId('search')}>
+          <Button variant="outline" className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 px-8 py-3 rounded-full" onClick={() => router.push('/search')}>
             <Search className="w-5 h-5 mr-2" /> Buscar Solo
           </Button>
         </div>
