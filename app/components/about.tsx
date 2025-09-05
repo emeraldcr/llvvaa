@@ -1,23 +1,42 @@
 'use client'
 import React from 'react';
+import Image from 'next/image';
 import { Leaf } from 'lucide-react';
+import { getImageProps, IMAGE_PATHS } from '@/app/lib/image-utils';
 
 const About: React.FC = () => {
   return (
     <section id="about" className="relative w-full min-h-screen overflow-hidden py-20">
       {/* Background with enhanced gradient and water-like effects */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `linear-gradient(135deg, rgba(0,50,100,0.8) 0%, rgba(16,185,129,0.2) 30%, rgba(0,100,150,0.6) 70%, rgba(0,0,0,0.8) 100%), url('/equipo-guia-la-vieja.png')`,
-          filter: 'contrast(1.3) brightness(0.9) saturate(1.2)',
-        }}
-      />
+      <div className="absolute inset-0 overflow-hidden">
+        <Image
+          {...getImageProps(
+            IMAGE_PATHS.teamPhoto,
+            "Background - Equipo de guías de La Vieja Adventures",
+            'background',
+            {
+              quality: 70
+            }
+          )}
+          fill
+          className="object-cover"
+          style={{
+            filter: 'contrast(1.3) brightness(0.9) saturate(1.2)'
+          }}
+        />
+        {/* Gradient overlay */}
+        <div 
+          className="absolute inset-0 z-10"
+          style={{
+            background: 'linear-gradient(135deg, rgba(0,50,100,0.8) 0%, rgba(16,185,129,0.2) 30%, rgba(0,100,150,0.6) 70%, rgba(0,0,0,0.8) 100%)'
+          }}
+        />
+      </div>
 
       {/* Glassmorphism overlay */}
-      <div className="absolute inset-0 backdrop-blur-[3px] bg-gradient-to-br from-blue-900/20 via-cyan-800/10 to-teal-900/20" />
+      <div className="absolute inset-0 backdrop-blur-[3px] bg-gradient-to-br from-blue-900/20 via-cyan-800/10 to-teal-900/20 z-20" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+      <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Texto */}
           <div>
@@ -64,11 +83,21 @@ const About: React.FC = () => {
 
           {/* Imagen + Sello Ecológico */}
           <div className="relative">
-            <img
-              src="/equipo-guia-la-vieja.png"
-              alt="Equipo de guías de La Vieja Adventures"
-              className="rounded-lg shadow-xl object-cover w-full h-96"
-            />
+            <div className="relative w-full h-96 rounded-lg shadow-xl overflow-hidden">
+              <Image
+                {...getImageProps(
+                  IMAGE_PATHS.teamPhoto,
+                  "Equipo de guías de La Vieja Adventures",
+                  'card',
+                  {
+                    placeholder: 'blur',
+                    quality: 85
+                  }
+                )}
+                fill
+                className="object-cover"
+              />
+            </div>
             <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg shadow-lg flex items-center gap-3">
               <div className="bg-green-100 p-2 rounded-full">
                 <Leaf className="h-6 w-6 text-green-600" />

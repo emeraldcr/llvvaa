@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import {
   Card,
   CardContent,
@@ -8,6 +9,7 @@ import {
   CardTitle
 } from '../components/ui/card'
 import { testimonials } from '../lib/statics'
+import { getImageProps } from '@/app/lib/image-utils'
 
 export default function Testimonials() {
   return (
@@ -26,11 +28,21 @@ export default function Testimonials() {
           {testimonials.map((item, idx) => (
             <Card key={idx} className="hover:shadow-lg transition-shadow">
               <CardHeader className="flex items-center gap-4">
-                <img
-                  src={item.avatar}
-                  alt={item.name}
-                  className="h-12 w-12 rounded-full object-cover"
-                />
+                <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                  <Image
+                    {...getImageProps(
+                      item.avatar,
+                      item.name,
+                      'avatar',
+                      {
+                        placeholder: 'blur',
+                        quality: 85
+                      }
+                    )}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 <div>
                   <CardTitle className="text-lg">{item.name}</CardTitle>
                 </div>

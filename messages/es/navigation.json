@@ -1,0 +1,20 @@
+{
+  "brand": {
+    "name": "La Vieja Adventures",
+    "tagline": "Aventuras Sostenibles"
+  },
+  "menu": {
+    "advertise": "Anúnciate aquí",
+    "home": "Inicio",
+    "adventures": "Aventuras",
+    "services": "Servicios",
+    "about": "Nosotros",
+    "testimonials": "Testimonios",
+    "contact": "Contacto"
+  },
+  "cta": {
+    "reserve": "¡Reserva ya!",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  }
+}

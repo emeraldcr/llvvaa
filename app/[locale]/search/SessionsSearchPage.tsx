@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useTranslations, useLocale } from 'next-intl'
 import { motion } from 'framer-motion'
 import {
   Search as SearchIcon,
@@ -14,16 +15,17 @@ import {
 } from 'lucide-react'
 
 // shadcn/ui components 
-import { Button } from '../components/ui/button'
-import { Input } from '../components/ui/input'
-import { Card, CardContent } from '../components/ui/card'
-import { Badge } from '../components/ui/badge'
-import { Separator } from '../components/ui/separator'
+import { Button } from '../../components/ui/button'
+import { Input } from '../../components/ui/input'
+import { Card, CardContent } from '../../components/ui/card'
+import { Badge } from '../../components/ui/badge'
+import { Separator } from '../../components/ui/separator'
 
-// Import adventures data
-import { adventures as adventuresData } from '@/app/lib/statics'
+// Import localized data
+import { useLocalizedAdventures } from '@/app/lib/localized-data'
+import { getLocalizedSlug } from '@/app/lib/i18n-utils'
 
-// Simplified Adventure type
+// Adventure type for search
 interface Adventure {
   id?: string | number
   slug?: string
@@ -38,6 +40,7 @@ interface Adventure {
   tags?: string[]
   description?: string
   price?: string | number
+  price_range?: string
   image?: string
   cover?: string
 }
@@ -95,6 +98,10 @@ export default function SessionsSearchPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const inputRef = useRef<HTMLInputElement>(null)
+  const t = useTranslations('search')
+  const tCommon = useTranslations('common')
+  const locale = useLocale()
+  const adventures = useLocalizedAdventures()
 
   const [query, setQuery] = useState(searchParams?.get('q') || '')
   const [recentSearches, setRecentSearches] = useState<string[]>([])
@@ -126,13 +133,13 @@ export default function SessionsSearchPage() {
 
   // Search results
   const searchResults = useMemo(() => {
-    return searchAdventures(query, adventuresData as Adventure[])
-  }, [query])
+    return searchAdventures(query, adventures as Adventure[])
+  }, [query, adventures])
 
   // Handle adventure selection
   const handleSelectAdventure = (adventure: Adventure) => {
-    const id = getAdventureId(adventure)
-    if (id) {
+    const slug = adventure.slug
+    if (slug) {
       if (query.trim()) {
         const newRecent = [query, ...recentSearches.filter(s => s !== query)].slice(0, 8)
         setRecentSearches(newRecent)
@@ -142,7 +149,8 @@ export default function SessionsSearchPage() {
           console.error('Error saving recent searches:', error)
         }
       }
-      router.push(`/tours/${id}`)
+      const localizedSlug = getLocalizedSlug(slug, locale)
+      router.push(`/${locale}/tours/${localizedSlug}`)
     }
   }
 
@@ -200,7 +208,7 @@ export default function SessionsSearchPage() {
               ref={inputRef}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar por artista, ciudad, fecha o etiqueta... (Ctrl/⌘+K)"
+              placeholder={t('placeholder')}
               className="h-12 pl-12 pr-10 text-base bg-white/10 border-white/20 text-white placeholder-white/70 focus-visible:ring-2 focus-visible:ring-emerald-400/60 focus-visible:border-emerald-300/60"
               autoFocus
             />
@@ -219,11 +227,11 @@ export default function SessionsSearchPage() {
           </div>
 
           <Button
-            onClick={() => router.push('/sessions')}
+            onClick={() => router.push(`/${locale}/sessions`)}
             variant="secondary"
             className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 border-0"
           >
-            Sessions
+            {t('sessionsButton')}
           </Button>
         </motion.div>
 
@@ -271,15 +279,17 @@ interface SearchResultsProps {
 }
 
 function SearchResults({ query, results, onSelect }: SearchResultsProps) {
+  const t = useTranslations('search')
+  
   if (results.length === 0) {
     return (
       <Card className="border-dashed border-white/20 bg-white/10 backdrop-blur-md text-white">
         <CardContent className="p-10 text-center">
           <p className="text-white/80">
             {query ? (
-              <>No se encontraron resultados para <strong className="text-white">"{query}"</strong>. Prueba buscando por artista o ciudad.</>
+              <>{t('noResults')} <strong className="text-white">"{query}"</strong>. {t('trySearching')}</>
             ) : (
-              'Empieza a escribir para buscar aventuras y sesiones.'
+              t('startTyping')
             )}
           </p>
         </CardContent>
@@ -291,7 +301,7 @@ function SearchResults({ query, results, onSelect }: SearchResultsProps) {
     <div className="grid gap-4 sm:grid-cols-2">
       {results.map((adventure, index) => (
         <AdventureCard
-          key={getAdventureId(adventure) || index}
+          key={adventure.slug || index}
           adventure={adventure}
           onClick={() => onSelect(adventure)}
         />
@@ -311,7 +321,7 @@ function AdventureCard({ adventure, onClick }: AdventureCardProps) {
   const location = getAdventureLocation(adventure)
   const date = getAdventureDate(adventure)
   const image = getAdventureImage(adventure)
-  const price = adventure.price
+  const price = adventure.price || adventure.price_range
   const tags = (adventure.tags || []).slice(0, 3)
 
   return (
@@ -390,10 +400,12 @@ interface RecentSearchesProps {
 }
 
 function RecentSearches({ searches, onSelect, onRemove }: RecentSearchesProps) {
+  const t = useTranslations('search')
+  
   return (
     <Card className="border border-white/15 bg-white/10 backdrop-blur-md text-white">
       <CardContent className="p-4">
-        <h4 className="font-medium mb-3">Búsquedas recientes</h4>
+        <h4 className="font-medium mb-3">{t('recentSearches')}</h4>
         <div className="flex flex-wrap gap-2">
           {searches.map((search) => (
             <div key={search} className="flex items-center">
@@ -424,23 +436,25 @@ function RecentSearches({ searches, onSelect, onRemove }: RecentSearchesProps) {
 
 // Search Tips Component
 function SearchTips() {
+  const t = useTranslations('search')
+  
   return (
     <Card className="border border-white/15 bg-white/10 backdrop-blur-md text-white">
       <CardContent className="p-4">
-        <h4 className="font-medium mb-3">Consejos de búsqueda</h4>
+        <h4 className="font-medium mb-3">{t('searchTips.title')}</h4>
         <ul className="text-sm text-white/80 space-y-1">
-          <li>• Usa nombre del artista, ciudad o fecha</li>
-          <li>• Agrega etiquetas como “acústico”, “VIP”, “festival”</li>
+          <li>• {t('searchTips.tip1')}</li>
+          <li>• {t('searchTips.tip2')}</li>
           <li>
-            • Presiona{' '}
+            • {t('searchTips.tip3')}{' '}
             <kbd className="px-1 border border-white/30 rounded bg-white/10">Ctrl</kbd>/
             <kbd className="px-1 border border-white/30 rounded bg-white/10">⌘</kbd>+
-            <kbd className="px-1 border border-white/30 rounded bg-white/10">K</kbd> para enfocar
+            <kbd className="px-1 border border-white/30 rounded bg-white/10">K</kbd>
           </li>
         </ul>
         <Separator className="my-3 bg-white/20" />
         <p className="text-xs text-white/70">
-          Tip: Usa múltiples palabras para refinar los resultados.
+          {t('searchTips.multipleWords')}
         </p>
       </CardContent>
     </Card>

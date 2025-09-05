@@ -2,12 +2,17 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { useTranslations, useLocale } from 'next-intl'
 import { Button } from "../components/ui/button"
 import { Menu, X, Droplets, Waves } from 'lucide-react'
+import { getImageProps, IMAGE_PATHS } from '@/app/lib/image-utils'
+import LanguageSwitcher from './language-switcher'
 
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const t = useTranslations('navigation')
+  const locale = useLocale()
 
   // Detect scroll for dynamic styling
   useEffect(() => {
@@ -27,13 +32,13 @@ export default function Nav() {
   }
 
   const menuItems = [
-    { id: 'anunciate', label: 'Anúnciate aquí', icon: '📢', href: '/anunciate-aqui' },
-    { id: 'home', label: 'Inicio', icon: '🏠' },
-    { id: 'adventures', label: 'Aventuras', icon: '🏔️' },
-    { id: 'services', label: 'Servicios', icon: '⚡' },
-    { id: 'about', label: 'Nosotros', icon: '🌟' },
-    { id: 'testimonials', label: 'Testimonios', icon: '💬' },
-    { id: 'contact', label: 'Contacto', icon: '📞' },
+    { id: 'anunciate', label: t('menu.advertise'), icon: '📢', href: `/${locale}/anunciate-aqui` },
+    { id: 'home', label: t('menu.home'), icon: '🏠' },
+    { id: 'adventures', label: t('menu.adventures'), icon: '🏔️' },
+    { id: 'services', label: t('menu.services'), icon: '⚡' },
+    { id: 'about', label: t('menu.about'), icon: '🌟' },
+    { id: 'testimonials', label: t('menu.testimonials'), icon: '💬' },
+    { id: 'contact', label: t('menu.contact'), icon: '📞' },
   ]
 
   return (
@@ -51,25 +56,24 @@ export default function Nav() {
     <div className="flex justify-between items-center h-16 lg:h-20">
       {/* Logo + Brand */}
       <a 
-        className="flex items-center space-x-2 lg:space-x-3 group cursor-pointer" 
+        className="flex items-center space-x-2 sm:space-x-2 md:space-x-3 lg:space-x-4 xl:space-x-4 group cursor-pointer" 
         href="/"
       >
         <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
-          <div className="relative bg-white/20 backdrop-blur-sm rounded-full p-1.5 lg:p-2 border border-white/30 group-hover:border-cyan-400/50 transition-all duration-300">
-            <img
-              src={"/logo2.png"}
-              alt={"La Vieja Adventures Logo"}
-              className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 object-cover transform group-hover:scale-110 transition-transform duration-500"
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full blur opacity-25 lg:opacity-30 group-hover:opacity-50 lg:group-hover:opacity-60 transition-opacity duration-300"></div>
+          <div className="relative bg-white/20 backdrop-blur-sm rounded-full p-1.5 sm:p-2 md:p-2 lg:p-2.5 xl:p-3 border border-white/30 lg:border-white/40 group-hover:border-cyan-400/60 lg:group-hover:border-cyan-400/70 transition-all duration-300">
+            <Image
+              {...getImageProps(IMAGE_PATHS.logo, "La Vieja Adventures Logo", 'logo')}
+              className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 object-cover transform group-hover:scale-110 lg:group-hover:scale-115 transition-transform duration-500"
             />
           </div>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm sm:text-lg lg:text-2xl font-black bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent leading-tight">
-            La Vieja Adventures
+          <span className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-black bg-gradient-to-r from-white via-cyan-100 to-blue-200 bg-clip-text text-transparent leading-tight">
+            {t('brand.name')}
           </span>
-          <span className="text-xs lg:text-xs text-cyan-300/80 font-medium hidden sm:block">
-            Aventuras Sostenibles
+          <span className="text-xs sm:text-xs md:text-sm lg:text-sm xl:text-base text-cyan-300/80 font-medium hidden sm:block">
+            {t('brand.tagline')}
           </span>
         </div>
       </a>
@@ -104,6 +108,9 @@ export default function Nav() {
           )
         ))}
         
+        {/* Language Switcher */}
+        <LanguageSwitcher variant="compact" className="ml-2" />
+        
         {/* Desktop CTA Button */}
         <Button
           size="lg"
@@ -113,7 +120,7 @@ export default function Nav() {
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-blue-400/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="relative flex items-center space-x-2">
             <Droplets className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-            <span className="font-bold">¡Reserva ya!</span>
+            <span className="font-bold">{t('cta.reserve')}</span>
           </div>
         </Button>
       </div>
@@ -125,7 +132,7 @@ export default function Nav() {
           size="icon"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="group relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/20 hover:scale-110 transition-all duration-300 p-2"
-          aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={isMenuOpen ? t('cta.closeMenu') : t('cta.openMenu')}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="relative">
@@ -178,6 +185,11 @@ export default function Nav() {
               )
             ))}
             
+            {/* Language Switcher for Mobile */}
+            <div className="pt-2 border-t border-white/20">
+              <LanguageSwitcher variant="mobile" />
+            </div>
+            
             <div className="pt-3 border-t border-white/20">
               <Button
                 size="lg"
@@ -189,7 +201,7 @@ export default function Nav() {
               >
                 <div className="flex items-center justify-center space-x-2">
                   <Droplets className="w-5 h-5 text-cyan-400" />
-                  <span className="font-bold">¡Reserva ya!</span>
+                  <span className="font-bold">{t('cta.reserve')}</span>
                 </div>
               </Button>
             </div>

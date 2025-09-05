@@ -1,0 +1,30 @@
+{
+  "buttons": {
+    "readMore": "Read more",
+    "bookNow": "Book now",
+    "contact": "Contact",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "loading": "Loading...",
+    "viewDetails": "View details"
+  },
+  "forms": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email",
+    "invalidPhone": "Invalid phone number",
+    "success": "Message sent successfully!",
+    "error": "Error sending message. Please try again."
+  },
+  "currency": {
+    "colones": "₡",
+    "dollars": "$"
+  },
+  "language": {
+    "switchTo": "Switch to",
+    "spanish": "Español",
+    "english": "English"
+  }
+}

@@ -15,13 +15,14 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
-export default function TourPage({ params }: Props) {
+export default async function TourPage({ params }: Props) {
+  const { slug } = await params
  
   return (
     <div>
       <div>
         <Nav />
-        <Tour params = {params}></Tour>
+        <Tour slug={slug} />
         <Hero></Hero>
         <Services></Services>
         <About></About>
