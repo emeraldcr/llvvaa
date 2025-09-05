@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest"
+    "test": "vitest",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch",
+    "validate-ts": "tsx",
+    "validate-config": "tsx lib/metadata-config.ts",
+    "validate-typescript": "tsx scripts/validate-typescript.ts",
+    "validate-all-ts": "tsc --noEmit && echo All TypeScript files are valid"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -66,11 +72,16 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19.1.11",
     "@types/react-dom": "^19.1.7",
     "@types/three": "^0.178.0",
+    "jsdom": "^26.1.0",
     "tailwindcss": "^4",
+    "tsx": "^4.19.2",
     "typescript": "^5",
     "vitest": "^3.2.4"
   }

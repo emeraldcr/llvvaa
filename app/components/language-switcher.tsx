@@ -1,8 +1,8 @@
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Button } from './ui/button'
 import { ChevronDown, Globe, Check } from 'lucide-react'
 import { locales } from '../../lib/i18n'
@@ -19,6 +19,7 @@ export default function LanguageSwitcher({
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const currentLocale = useLocale()
   const t = useTranslations('common.language')
 
@@ -30,43 +31,53 @@ export default function LanguageSwitcher({
   const currentLanguage =
     languages.find((lang) => lang.code === currentLocale) ?? languages[0]
 
+  const constructLocalePath = useCallback((locale: string, currentPath: string): string => {
+    // Handle root path
+    if (currentPath === '/' || currentPath === '') {
+      return `/${locale}`
+    }
+
+    // Remove leading slash for processing
+    const pathWithoutSlash = currentPath.startsWith('/') ? currentPath.slice(1) : currentPath
+    const segments = pathWithoutSlash.split('/').filter(Boolean)
+    
+    // Check if first segment is a locale
+    if (segments.length > 0 && locales.includes(segments[0] as any)) {
+      // Replace existing locale
+      segments[0] = locale
+    } else {
+      // No locale in path, prepend new locale
+      segments.unshift(locale)
+    }
+    
+    // Construct path ensuring single leading slash
+    return `/${segments.join('/')}`
+  }, [])
+
   const switchLanguage = (newLocale: string) => {
     if (newLocale === currentLocale) {
       setIsOpen(false)
       return
     }
 
-    // Improved path construction with better edge case handling
-    const constructLocalePath = (locale: string, currentPath: string): string => {
-      // Handle root path
-      if (currentPath === '/' || currentPath === '') {
-        return `/${locale}`
-      }
-
-      // Remove leading slash for processing
-      const pathWithoutSlash = currentPath.startsWith('/') ? currentPath.slice(1) : currentPath
-      const segments = pathWithoutSlash.split('/').filter(Boolean)
+    try {
+      const newPath = constructLocalePath(newLocale, pathname)
       
-      // Check if first segment is a locale
-      if (segments.length > 0 && locales.includes(segments[0] as any)) {
-        // Replace existing locale
-        segments[0] = locale
+      // Preserve search parameters
+      const query = searchParams.toString()
+      const fullPath = query ? `${newPath}?${query}` : newPath
+      
+      // Validate the constructed path
+      if (newPath && !newPath.includes('//')) {
+        router.push(fullPath)
       } else {
-        // No locale in path, prepend new locale
-        segments.unshift(locale)
+        // Fallback to simple locale path if construction fails
+        const fallbackPath = query ? `/${newLocale}?${query}` : `/${newLocale}`
+        router.push(fallbackPath)
       }
-      
-      // Construct path ensuring single leading slash
-      return `/${segments.join('/')}`
-    }
-
-    const newPath = constructLocalePath(newLocale, pathname)
-    
-    // Validate the constructed path
-    if (newPath && !newPath.includes('//')) {
-      router.push(newPath)
-    } else {
-      // Fallback to simple locale path if construction fails
+    } catch (error) {
+      console.warn('Error switching language:', error)
+      // Final fallback
       router.push(`/${newLocale}`)
     }
     

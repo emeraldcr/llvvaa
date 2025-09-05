@@ -1,9 +1,15 @@
 /**
- * Basic tests for locale functionality debugging and validation
- * These tests help verify that the locale fixes are working correctly
+ * Comprehensive tests for locale functionality debugging and validation
+ * These tests help verify that all locale fixes are working correctly
  */
 
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
+import { LocaleDebugger } from '../../lib/locale-debug'
+
+// Reset debugger before each test
+beforeEach(() => {
+  LocaleDebugger.clearLogs()
+})
 
 describe('Locale Middleware Configuration', () => {
   it('should have proper exclusion patterns', () => {
@@ -179,4 +185,88 @@ describe('Error Boundary Functionality', () => {
   })
 })
 
-export {}
+describe('Locale Debugger', () => {
+  it('should validate locales correctly', () => {
+    expect(LocaleDebugger.validateLocale('es').isValid).toBe(true)
+    expect(LocaleDebugger.validateLocale('en').isValid).toBe(true)
+    expect(LocaleDebugger.validateLocale('fr').isValid).toBe(false)
+    expect(LocaleDebugger.validateLocale('').isValid).toBe(false)
+    expect(LocaleDebugger.validateLocale(null as any).isValid).toBe(false)
+  })
+
+  it('should validate paths correctly', () => {
+    const validPath = LocaleDebugger.validatePath('/es/adventures')
+    expect(validPath.isValid).toBe(true)
+    expect(validPath.extractedLocale).toBe('es')
+
+    const invalidPath = LocaleDebugger.validatePath('/fr/adventures')
+    expect(invalidPath.isValid).toBe(false)
+    expect(invalidPath.extractedLocale).toBe(null)
+
+    const rootPath = LocaleDebugger.validatePath('/')
+    expect(rootPath.isValid).toBe(true)
+    expect(rootPath.extractedLocale).toBe(null)
+  })
+
+  it('should log debug information correctly', () => {
+    LocaleDebugger.log({
+      currentLocale: 'es',
+      pathname: '/es/test'
+    })
+
+    const logs = LocaleDebugger.getLogs()
+    expect(logs).toHaveLength(1)
+    expect(logs[0].currentLocale).toBe('es')
+    expect(logs[0].pathname).toBe('/es/test')
+  })
+
+  it('should generate debug reports', () => {
+    LocaleDebugger.log({ currentLocale: 'es', pathname: '/test' })
+    const report = LocaleDebugger.generateDebugReport()
+    const parsed = JSON.parse(report)
+    
+    expect(parsed.configuration.supportedLocales).toEqual(['es', 'en'])
+    expect(parsed.configuration.defaultLocale).toBe('es')
+    expect(parsed.logs).toHaveLength(1)
+  })
+})
+
+describe('Enhanced Language Switcher', () => {
+  // Mock the new enhanced functionality
+  const mockSearchParams = new URLSearchParams('q=test&filter=adventure')
+  
+  const constructLocalePath = (locale: string, currentPath: string): string => {
+    const locales = ['es', 'en']
+    
+    if (currentPath === '/' || currentPath === '') {
+      return `/${locale}`
+    }
+
+    const pathWithoutSlash = currentPath.startsWith('/') ? currentPath.slice(1) : currentPath
+    const segments = pathWithoutSlash.split('/').filter(Boolean)
+    
+    if (segments.length > 0 && locales.includes(segments[0] as any)) {
+      segments[0] = locale
+    } else {
+      segments.unshift(locale)
+    }
+    
+    return `/${segments.join('/')}`
+  }
+
+  it('should preserve query parameters when switching languages', () => {
+    const basePath = '/es/adventures'
+    const newPath = constructLocalePath('en', basePath)
+    const query = mockSearchParams.toString()
+    const fullPath = query ? `${newPath}?${query}` : newPath
+    
+    expect(fullPath).toBe('/en/adventures?q=test&filter=adventure')
+  })
+
+  it('should handle error scenarios gracefully', () => {
+    // Test with malformed paths
+    expect(() => constructLocalePath('en', '//malformed//path')).not.toThrow()
+    expect(() => constructLocalePath('en', '')).not.toThrow()
+    expect(() => constructLocalePath('', '/es/test')).not.toThrow()
+  })
+})

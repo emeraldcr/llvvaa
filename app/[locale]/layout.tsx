@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { locales } from '../../lib/i18n';
 import { createLocaleMetadata } from '../../lib/metadata-config';
 import LocaleErrorBoundary from '../components/locale-error-boundary';
+import { LocaleDebugger } from '../../lib/locale-debug';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -14,54 +15,102 @@ type LayoutProps = {
 export async function generateMetadata(
   { params }: LayoutProps
 ): Promise<Metadata> {
-  const { locale } = await params;
+  const resolvedParams = await params;
+  const { locale } = resolvedParams;
 
-  if (!locales.includes(locale as any)) {
+  // Validate locale
+  const validation = LocaleDebugger.validateLocale(locale);
+  if (!validation.isValid) {
+    console.error('Invalid locale in metadata generation:', validation.message);
     notFound();
   }
 
-  // Get localized messages for metadata
-  const messages = await getMessages({ locale });
-  const metadata = messages.metadata as any;
+  try {
+    // Get localized messages for metadata
+    const messages = await getMessages({ locale });
+    const metadata = messages.metadata as any;
 
-  // Extract localized metadata values
-  const title = metadata?.site?.title;
-  const description = metadata?.site?.description;
-  const keywords = metadata?.site?.keywords?.split(', ');
+    // Extract localized metadata values
+    const title = metadata?.site?.title;
+    const description = metadata?.site?.description;
+    const keywords = metadata?.site?.keywords?.split(', ');
 
-  // Use the centralized metadata configuration utility
-  return createLocaleMetadata(
-    locale,
-    title,
-    description,
-    undefined, // Use default URL construction
-    keywords
-  );
+    // Use the centralized metadata configuration utility
+    return createLocaleMetadata(
+      locale,
+      title,
+      description,
+      undefined, // Use default URL construction
+      keywords
+    );
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    // Return fallback metadata
+    return createLocaleMetadata(
+      locale,
+      'La Vieja Adventures',
+      'Adventure tourism in Costa Rica',
+      undefined,
+      ['adventure', 'tourism', 'costa rica']
+    );
+  }
 }
 
 export default async function LocaleLayout({
   children,
   params,
 }: LayoutProps) {
-  const { locale } = await params;
+  const resolvedParams = await params;
+  const { locale } = resolvedParams;
 
-  if (!locales.includes(locale as any)) {
+  // Enhanced locale validation with debugging
+  const validation = LocaleDebugger.validateLocale(locale);
+  if (!validation.isValid) {
+    LocaleDebugger.log({
+      currentLocale: locale,
+      pathname: 'layout-validation-failed'
+    });
+    console.error('Locale validation failed:', validation.message);
     notFound();
   }
 
-  // Ensure messages are loaded with error handling
+  // Log successful locale processing
+  LocaleDebugger.log({
+    currentLocale: locale,
+    pathname: 'layout-processing'
+  });
+
+  // Ensure messages are loaded with enhanced error handling
   let messages;
   try {
     messages = await getMessages({ locale });
+    
+    // Validate messages structure
+    if (!messages || typeof messages !== 'object') {
+      throw new Error('Invalid messages structure');
+    }
+    
+    console.log(`✅ Messages loaded successfully for locale '${locale}'`);
   } catch (error) {
-    console.error(`Failed to load messages for locale '${locale}':`, error);
+    console.error(`❌ Failed to load messages for locale '${locale}':`, error);
+    
     // Attempt fallback to default locale
     try {
       messages = await getMessages({ locale: 'es' });
-      console.warn('Using fallback messages for Spanish locale');
+      console.warn('🔄 Using fallback messages for Spanish locale');
     } catch (fallbackError) {
-      console.error('Critical: Failed to load any messages');
-      messages = {};
+      console.error('💥 Critical: Failed to load any messages');
+      // Provide minimal messages structure
+      messages = {
+        common: {
+          buttons: { loading: 'Loading...' },
+          language: { switchTo: 'Switch to' }
+        },
+        navigation: {
+          brand: { name: 'La Vieja Adventures' },
+          menu: { home: 'Home' }
+        }
+      };
     }
   }
 
@@ -70,6 +119,8 @@ export default async function LocaleLayout({
       <NextIntlClientProvider 
         messages={messages}
         locale={locale}
+        timeZone="America/Costa_Rica"
+        now={new Date()}
       >
         {children}
       </NextIntlClientProvider>

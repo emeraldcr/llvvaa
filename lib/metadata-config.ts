@@ -5,7 +5,10 @@
  * configuration for Next.js applications with internationalization support.
  */
 
-import type { Metadata, OpenGraph } from 'next';
+import type { Metadata } from 'next';
+
+// Extract OpenGraph type from Metadata interface for Next.js 15 compatibility
+type OpenGraph = NonNullable<Metadata['openGraph']>
 
 /**
  * Gets the base URL for the application based on the current environment

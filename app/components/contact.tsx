@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import emailjs from '@emailjs/browser'
 import { useTranslations, useLocale } from 'next-intl'
 import {
@@ -13,15 +13,44 @@ import { Input } from '../components/ui/input'
 import { Textarea } from '../components/ui/textarea'
 import { Label } from '../components/ui/label'
 import { Button } from '../components/ui/button'
-
 import { useRouter } from 'next/navigation'
+
+// EmailJS configuration - move to environment variables in production
+const EMAILJS_CONFIG = {
+  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_tk6cmbd',
+  templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_iroxri8',
+  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '-AioZlrYl09XXA5sU'
+}
+
+// Form validation functions
+const validateEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+const validateForm = (form: any): { isValid: boolean; errors: string[] } => {
+  const errors: string[] = []
+  
+  if (!form.firstName.trim()) errors.push('firstName')
+  if (!form.lastName.trim()) errors.push('lastName')
+  if (!form.email.trim()) errors.push('email')
+  if (form.email && !validateEmail(form.email)) errors.push('emailFormat')
+  if (!form.message.trim()) errors.push('message')
+  
+  return {
+    isValid: errors.length === 0,
+    errors
+  }
+}
 
 export default function Contact() {
   const [loading, setLoading] = useState(false)
+  const [submitAttempted, setSubmitAttempted] = useState(false)
   const t = useTranslations('contact')
   const tCommon = useTranslations('common')
   const locale = useLocale()
   const router = useRouter()
+  
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -31,7 +60,17 @@ export default function Contact() {
     message: '',
     newsletter: false,
   })
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    try {
+      emailjs.init(EMAILJS_CONFIG.publicKey)
+    } catch (error) {
+      console.error('Failed to initialize EmailJS:', error)
+    }
+  }, [])
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value, type } = e.target
 
     const newValue =
@@ -39,44 +78,78 @@ export default function Contact() {
         ? (e.target as HTMLInputElement).checked
         : value
 
-    setForm({ ...form, [id]: newValue })
-  }
+    setForm(prev => ({ ...prev, [id]: newValue }))
+  }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitAttempted(true)
+    
+    // Validate form
+    const validation = validateForm(form)
+    if (!validation.isValid) {
+      const errorMessage = locale === 'es' 
+        ? 'Por favor, completa todos los campos requeridos 📋'
+        : 'Please fill in all required fields 📋'
+      alert(errorMessage)
+      return
+    }
+    
     setLoading(true)
 
     try {
-      const newsletterValue = locale === 'es' ? (form.newsletter ? 'Sí' : 'No') : (form.newsletter ? 'Yes' : 'No')
+      const newsletterValue = locale === 'es' 
+        ? (form.newsletter ? 'Sí' : 'No') 
+        : (form.newsletter ? 'Yes' : 'No')
       
-      await emailjs.send(
-        'service_tk6cmbd',
-        'template_iroxri8',
-        {
-          firstName: form.firstName,
-          lastName: form.lastName,
-          email: form.email,
-          phone: form.phone,
-          adventure: form.adventure,
-          message: form.message,
-          newsletter: newsletterValue,
-        },
-        '-AioZlrYl09XXA5sU'
+      // Prepare template parameters
+      const templateParams = {
+        firstName: form.firstName.trim(),
+        lastName: form.lastName.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        adventure: form.adventure.trim(),
+        message: form.message.trim(),
+        newsletter: newsletterValue,
+        timestamp: new Date().toISOString(),
+        locale: locale
+      }
+      
+      // Send email via EmailJS
+      const result = await emailjs.send(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        templateParams,
+        EMAILJS_CONFIG.publicKey
       )
-     
-      router.push(`/${locale}/confirmation`)
-      setForm({
-        firstName: '', lastName: '', email: '',
-        phone: '', adventure: '', message: '', newsletter: false
-      })
+      
+      if (result.status === 200) {
+        // Success - redirect to confirmation page
+        router.push(`/${locale}/confirmation`)
+        
+        // Reset form
+        setForm({
+          firstName: '', lastName: '', email: '',
+          phone: '', adventure: '', message: '', newsletter: false
+        })
+        setSubmitAttempted(false)
+      } else {
+        throw new Error(`EmailJS returned status: ${result.status}`)
+      }
+      
     } catch (err) {
-      const errorMessage = locale === 'es' ? 'Hubo un error al enviar el mensaje 😓' : 'There was an error sending the message 😓'
+      console.error('Email send error:', err)
+      
+      // Show user-friendly error message
+      const errorMessage = locale === 'es' 
+        ? 'Hubo un error al enviar el mensaje. Por favor, intenta nuevamente o contáctanos directamente. 😓'
+        : 'There was an error sending the message. Please try again or contact us directly. 😓'
+      
       alert(errorMessage)
-      console.error(err)
     } finally {
       setLoading(false)
     }
-  }
+  }, [form, locale, router])
 
   return (
     <section id="contact" className="py-20 bg-green-50">
