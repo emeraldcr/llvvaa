@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { locales } from '../../lib/i18n';
 import { createLocaleMetadata } from '../../lib/metadata-config';
 import LocaleErrorBoundary from '../components/locale-error-boundary';
 import { LocaleDebugger } from '../../lib/locale-debug';
+
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -28,7 +28,7 @@ export async function generateMetadata(
   try {
     // Get localized messages for metadata
     const messages = await getMessages({ locale });
-    const metadata = messages.metadata as any;
+    const metadata = messages.metadata ;
 
     // Extract localized metadata values
     const title = metadata?.site?.title;
@@ -59,7 +59,7 @@ export async function generateMetadata(
 export default async function LocaleLayout({
   children,
   params,
-}: LayoutProps) {
+}: Readonly<LayoutProps>) {
   const resolvedParams = await params;
   const { locale } = resolvedParams;
 
@@ -99,7 +99,7 @@ export default async function LocaleLayout({
       messages = await getMessages({ locale: 'es' });
       console.warn('🔄 Using fallback messages for Spanish locale');
     } catch (fallbackError) {
-      console.error('💥 Critical: Failed to load any messages');
+      console.log('💥 Critical: Failed to load any messages', fallbackError);
       // Provide minimal messages structure
       messages = {
         common: {
